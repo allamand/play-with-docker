@@ -21,6 +21,11 @@ func NewSession(rw http.ResponseWriter, req *http.Request) {
 		log.Println(err)
 		//TODO: Return some error code
 	} else {
+		// If request is not a form, return sessionId in the body
+		if req.Header.Get("X-Requested-With") == "XMLHttpRequest" {
+			rw.Write([]byte(s.Id))
+			return
+		}
 		http.Redirect(rw, req, fmt.Sprintf("/p/%s", s.Id), http.StatusFound)
 	}
 }
