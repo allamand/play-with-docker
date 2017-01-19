@@ -205,7 +205,7 @@ func CloseSession(s *Session) error {
 // Todo: this handles minimum viable product and removes hard-coding of hours value :)
 // For future enhance to return time.Duration and parse a string / flag.
 func getExpiryHours() int {
-	hours := 4
+	hours := 22
 	override := os.Getenv("EXPIRY")
 	if len(override) > 0 {
 		value, err := strconv.Atoi(override)
