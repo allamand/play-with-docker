@@ -23,4 +23,9 @@ start:
 	docker-machine ssh pwd "sudo mount -t vboxsf gopathsrc /go/src"
 
 
-.PHONY: prepare start run
+.PHONY: prepare start run install
+
+
+install:
+	go get -v -d -t ./...
+	sudo cp -r . $$HOME/go/src/github.com/franela/play-with-docker
