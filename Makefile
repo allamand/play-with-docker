@@ -25,6 +25,8 @@ start:
 
 .PHONY: prepare start run install
 
+build-dind:
+	docker build -t sebmoule/dind -f Dockerfile.dind .
 
 install:
 	go get -v -d -t ./...

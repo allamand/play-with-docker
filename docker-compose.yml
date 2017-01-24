@@ -1,10 +1,12 @@
-version: '2'
+version: '3'
+
 services:
     pwd:
         # pwd daemon container always needs to be named this way
         container_name: pwd
         # use the latest golang image
-        image: golang
+        image: localhost:5000/pwd
+        build: .
         # go to the right place and starts the app
         command: /bin/sh -c 'cd /go/src/github.com/franela/play-with-docker; go run api.go'
         ports:
@@ -15,7 +17,7 @@ services:
             # since this app creates networks and launches containers, we need to talk to docker daemon
             - /var/run/docker.sock:/var/run/docker.sock
             # mount the box mounted shared folder to the container
-            - $GOPATH/src:/go/src
+            #- $GOPATH/src:/go/src
         environment:
             GOOGLE_RECAPTCHA_DISABLED: "true"
-            DIND_IMAGE: "sebmoule/dind"
+#            DIND_IMAGE: "sebmoule/dind"

@@ -1,9 +1,9 @@
-FROM docker:1.13.0-rc6-dind
+FROM docker:1.13.0-dind
 
 RUN apk add --no-cache git tmux py2-pip apache2-utils vim build-base gettext-dev curl bash
 
 # Install Compose and Machine
-RUN pip install docker-compose==1.10.0-rc1
+RUN pip install docker-compose==1.10.0
 RUN curl -L https://github.com/docker/machine/releases/download/v0.9.0-rc1/docker-machine-Linux-x86_64 \
     -o /usr/bin/docker-machine && chmod +x /usr/bin/docker-machine
 
@@ -23,7 +23,8 @@ RUN rm /sbin/modprobe && echo '#!/bin/true' >/sbin/modprobe && chmod +x /sbin/mo
 COPY ["docker-prompt","/usr/local/bin/"]
 COPY [".vimrc",".bashrc", ".inputrc", "./root/"]
 
-ARG docker_storage_driver=overlay2
+#ARG docker_storage_driver=overlay2
+ARG docker_storage_driver=vfs
 
 ENV DOCKER_STORAGE_DRIVER=$docker_storage_driver
 
