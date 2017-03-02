@@ -23,4 +23,20 @@ start:
 	docker-machine ssh pwd "sudo mount -t vboxsf gopathsrc /go/src"
 
 
-.PHONY: prepare start run
+.PHONY: prepare start run install
+
+
+build-dind:
+	docker build -t sebmoule/dind -f Dockerfile.dind .
+
+
+install:
+	go get -v -d -t ./...
+	sudo cp -r . $$HOME/go/src/github.com/franela/play-with-docker
+
+
+ip-param:
+	@if [ ! $(IP) ] ; then echo "Must specify IP=x.x.x.x parameter" ; false ; fi
+
+find-network: ip-param	
+	for x in `docker network ls --filter driver=overlay --format {{.Name}}`; do if docker inspect $$x | grep "$(IP)" ; then echo $$x ; fi ; done

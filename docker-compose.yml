@@ -18,3 +18,4 @@ services:
             - $GOPATH/src:/go/src
         environment:
             GOOGLE_RECAPTCHA_DISABLED: "true"
+            DIND_IMAGE: "sebmoule/dind"

@@ -1,6 +1,6 @@
 FROM docker:17.03.0-ce-dind
 
-RUN apk add --no-cache git tmux py2-pip apache2-utils vim build-base gettext-dev curl bash-completion bash util-linux
+RUN apk add --no-cache git tmux py2-pip apache2-utils vim build-base gettext-dev curl bash-completion bash util-linux emacs jq
 
 ENV COMPOSE_VERSION=1.11.1
 # Install Compose and Machine
@@ -28,7 +28,8 @@ COPY ["docker-prompt","/usr/local/bin/"]
 COPY [".vimrc",".profile", ".inputrc", ".gitconfig", "./root/"]
 COPY ["daemon.json", "/etc/docker/"]
 
-ARG docker_storage_driver=overlay2
+#ARG docker_storage_driver=overlay2
+ARG docker_storage_driver=vfs
 
 ENV DOCKER_STORAGE_DRIVER=$docker_storage_driver
 
