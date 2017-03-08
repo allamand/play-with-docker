@@ -40,3 +40,8 @@ ip-param:
 
 find-network: ip-param	
 	for x in `docker network ls --filter driver=overlay --format {{.Name}}`; do if docker inspect $$x | grep "$(IP)" ; then echo $$x ; fi ; done
+
+
+clean-session:
+	docker ps -aq --filter 'name=node*' | xargs docker stop
+	docker ps -aq --filter 'name=node*' | xargs docker rm
